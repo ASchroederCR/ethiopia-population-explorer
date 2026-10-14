@@ -1,0 +1,5 @@
+# Intermediates (label raster, per-raster aggregates) - regenerate with `python build.py`
+build/
+__pycache__/
+# The app loads geo.js; the raw GeoJSON copies are build by-products
+app/data/*.geojson

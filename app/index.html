@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethiopia population explorer</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="viz-root">
+  <header class="page-head">
+    <div>
+      <h1>Ethiopia population explorer</h1>
+      <p class="subtle" id="subtitle"></p>
+    </div>
+    <button id="theme-toggle" class="ghost" type="button" aria-label="Toggle dark mode">Theme</button>
+  </header>
+
+  <!-- One filter row scopes everything below it. -->
+  <section class="filters" aria-label="Filters">
+    <label>Source<select id="f-a"></select></label>
+    <label>Period
+      <span class="period-ctl">
+        <button type="button" class="ghost step" id="f-prev" aria-label="Previous period">&#8249;</button>
+        <select id="f-period"></select>
+        <button type="button" class="ghost step" id="f-next" aria-label="Next period">&#8250;</button>
+      </span>
+    </label>
+    <label>Compare with<select id="f-b"></select></label>
+    <label>Admin level<select id="f-level"></select></label>
+    <label>Map shows<select id="f-metric"></select></label>
+    <label id="f-base-wrap">Growth since<select id="f-base"></select></label>
+    <label class="check"><input type="checkbox" id="f-grid"> 1 km grid layer</label>
+  </section>
+
+  <section class="tiles" id="tiles" aria-label="National summary"></section>
+
+  <section class="main">
+    <div class="card map-card">
+      <div id="map" role="region" aria-label="Map"></div>
+      <div class="map-note subtle" id="map-note"></div>
+    </div>
+    <aside class="card side">
+      <div class="unit-head">
+        <div>
+          <div class="eyebrow" id="unit-level"></div>
+          <h2 id="unit-name">Ethiopia</h2>
+          <div class="subtle" id="unit-path"></div>
+        </div>
+        <button type="button" class="ghost" id="unit-reset" hidden>Show national</button>
+      </div>
+      <dl class="unit-stats" id="unit-stats"></dl>
+      <h3>Population over time</h3>
+      <div id="ts" class="chart"></div>
+      <p class="subtle small" id="ts-note"></p>
+    </aside>
+  </section>
+
+  <section class="row2">
+    <div class="card">
+      <h3 id="scatter-title">Unit-level agreement</h3>
+      <p class="subtle small" id="scatter-sub"></p>
+      <div id="scatter" class="chart chart-sq"></div>
+      <dl class="mini-stats" id="scatter-stats"></dl>
+    </div>
+    <div class="card">
+      <h3>Grid-level agreement (1 km cells)</h3>
+      <p class="subtle small">Each year of the comparison source against the primary source matched to the same date.
+        <em>Allocation disagreement</em> is the share of people that would need to move between cells to make the two
+        spatial distributions identical (after equalising totals).</p>
+      <div class="table-wrap"><table id="grid-stats"></table></div>
+      <h3 class="mt">Biggest differences</h3>
+      <div class="table-wrap"><table id="top-diff"></table></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="table-head">
+      <h3 id="table-title">All units</h3>
+      <div class="table-tools">
+        <input type="search" id="t-search" placeholder="Filter by name or P-code" aria-label="Filter table">
+        <button type="button" class="ghost" id="t-csv">Download CSV</button>
+      </div>
+    </div>
+    <div class="table-wrap tall"><table id="units-table"></table></div>
+  </section>
+
+  <details class="card notes">
+    <summary>Methods &amp; caveats</summary>
+    <div id="notes"></div>
+  </details>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="data/bundle.js"></script>
+<script src="data/geo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "_comment": "Paths are relative to this file. Add a new population source by appending to 'sources' and re-running build.py.",
+
+  "boundaries": {
+    "label": "OCHA COD-AB Ethiopia v04 (valid 2025-01-01)",
+    "levels": [
+      {"level": 1, "name": "Region", "path": "../Boundaries/OCHA_COD_AB/eth_admin1.shp", "pcode": "adm1_pcode", "label": "adm1_name"},
+      {"level": 2, "name": "Zone",   "path": "../Boundaries/OCHA_COD_AB/eth_admin2.shp", "pcode": "adm2_pcode", "label": "adm2_name"},
+      {"level": 3, "name": "Woreda", "path": "../Boundaries/OCHA_COD_AB/eth_admin3.shp", "pcode": "adm3_pcode", "label": "adm3_name"}
+    ],
+    "label_raster_arcsec": 3
+  },
+
+  "grid": {
+    "_comment": "Common comparison grid in EPSG:4326, aligned to the WorldPop 30 arc-second grid.",
+    "west": 32.9, "south": 3.3, "east": 48.1, "north": 15.0,
+    "res_arcsec": 30
+  },
+
+  "sources": [
+    {
+      "id": "populace",
+      "label": "Populace",
+      "description": "Populace popmap-ETH, 40 m equal-area grid (ESRI:54034), people per cell, quarterly.",
+      "glob": "../Populace/popmap-ETH-*/ETH_*.tif",
+      "period_regex": "ETH_(?P<year>\\d{4})q(?P<quarter>[1-4])\\.tif$",
+      "cadence": "quarter",
+      "units": "count"
+    },
+    {
+      "id": "worldpop_r2025a",
+      "label": "WorldPop R2025A",
+      "description": "WorldPop Global2 R2025A v1, constrained, 3 arc-second (~100 m), people per cell, annual.",
+      "glob": "../WorldPop/R2025A_100m_constrained/eth_pop_*_CN_100m_R2025A_v1.tif",
+      "period_regex": "eth_pop_(?P<year>\\d{4})_CN",
+      "cadence": "year",
+      "units": "count"
+    }
+  ],
+
+  "comparisons": [
+    {"a": "populace", "b": "worldpop_r2025a"}
+  ]
+}
