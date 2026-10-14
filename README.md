@@ -5,8 +5,13 @@ compares them with other gridded sources (WorldPop R2025A to start with).
 
 ## Open it
 
-Live site: https://aschroedercr.github.io/ethiopia-population-explorer/. It redeploys
-on every push to `main` via `.github/workflows/pages.yml`.
+Live site: https://aschroedercr.github.io/ethiopia-population-explorer/. It is served from
+the `gh-pages` branch, which holds the contents of `app/`. After rebuilding and committing
+to `main`, republish with:
+
+```bash
+git push origin `git subtree split --prefix app main`:refs/heads/gh-pages --force
+```
 
 Locally: double-click `app/index.html`. It needs internet access only for the basemap and the
 Leaflet/Plotly libraries. Or serve it:
